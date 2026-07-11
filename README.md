@@ -6,6 +6,21 @@ The application allows users to upload CSV files from various sources such as Fa
 
 ---------------------------------------------------
 
+## Output Screenshot for an example .csv file:
+<img width="907" height="836" alt="Screenshot 2026-07-11 115916" src="https://github.com/user-attachments/assets/f2dc1ae3-e661-4a5c-9296-407f0f137669" />
+
+
+example file -> leads_data.csv:
+[leads_data.csv](https://github.com/user-attachments/files/29917504/leads_data.csv)
+
+Lead Name,Email Address,Phone Number,City,State,Campaign,Remarks
+John Doe,john@gmail.com,+91 9876543210,Mumbai,Maharashtra,Facebook Summer Campaign,Interested in 2 BHK apartment
+Sarah Wilson,sarah@yahoo.com,+91 9876543211,Bangalore,Karnataka,Facebook Ads,Call after 5 PM
+Raj Patel,raj@gmail.com,+91 9876543212,Ahmedabad,Gujarat,Lead Form,Requested pricing details
+Priya Sharma,priya@gmail.com,+91 9876543213,Delhi,Delhi,Facebook Campaign,Needs site visit
+
+----------------------------------------------------
+
 ## Features
 
 ### Frontend
@@ -148,4 +163,4 @@ Runs on http://localhost:3000
 ## Author Details:
 Name: Somula Venkata Syam Prasad Reddy
 B.Tech, Computer Science and Engineering, 2026
-AI & Full Stack Developer
+AI-Powered Full Stack Developer
