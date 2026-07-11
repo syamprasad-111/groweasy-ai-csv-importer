@@ -1,23 +1,22 @@
 import multer from "multer";
-import path from "path";
 
-const storage = multer.diskStorage({
-  destination: "uploads/",
-  filename: (_req, file, cb) => {
-    const uniqueName = `${Date.now()}-${file.originalname}`;
-    cb(null, uniqueName);
-  },
-});
-
-const fileFilter: multer.Options["fileFilter"] = (_req, file, cb) => {
-  if (path.extname(file.originalname).toLowerCase() !== ".csv") {
-    return cb(new Error("Only CSV files are allowed"));
-  }
-
-  cb(null, true);
-};
+const storage = multer.memoryStorage();
 
 export const upload = multer({
   storage,
-  fileFilter,
+  limits: {
+    fileSize: 5 * 1024 * 1024,
+  },
+  fileFilter: (_req, file, callback) => {
+    const isCSV =
+      file.mimetype === "text/csv" ||
+      file.originalname.toLowerCase().endsWith(".csv");
+
+    if (!isCSV) {
+      callback(new Error("Only CSV files are allowed"));
+      return;
+    }
+
+    callback(null, true);
+  },
 });

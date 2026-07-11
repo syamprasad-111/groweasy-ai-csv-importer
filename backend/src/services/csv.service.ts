@@ -1,15 +1,24 @@
-// to convert csv into array of objects
-import fs from "fs";
 import csv from "csv-parser";
+import { Readable } from "stream";
 
-export const parseCSV = (filePath: string): Promise<any[]> => {
+export const parseCSV = (
+  buffer: Buffer
+): Promise<Record<string, string>[]> => {
   return new Promise((resolve, reject) => {
-    const rows: any[] = [];
+    const rows: Record<string, string>[] = [];
 
-    fs.createReadStream(filePath)
+    const stream = Readable.from(buffer);
+
+    stream
       .pipe(csv())
-      .on("data", (row) => rows.push(row))
-      .on("end", () => resolve(rows))
-      .on("error", reject);
+      .on("data", (row) => {
+        rows.push(row);
+      })
+      .on("end", () => {
+        resolve(rows);
+      })
+      .on("error", (error) => {
+        reject(error);
+      });
   });
 };

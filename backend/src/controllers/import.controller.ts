@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import fs from "fs";
 
 import { parseCSV } from "../services/csv.service";
 import { createBatches } from "../services/batch.service";
@@ -10,8 +9,6 @@ export const importCSV = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  let filePath: string | null = null;
-
   try {
     if (!req.file) {
       res.status(400).json({
@@ -21,9 +18,7 @@ export const importCSV = async (
       return;
     }
 
-    filePath = req.file.path;
-
-    const rows = await parseCSV(filePath);
+    const rows = await parseCSV(req.file.buffer);
 
     if (rows.length === 0) {
       res.status(400).json({
@@ -73,9 +68,5 @@ export const importCSV = async (
       message: "CSV import failed",
       error: message,
     });
-  } finally {
-    if (filePath && fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
-    }
   }
 };
